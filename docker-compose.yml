@@ -1,17 +1,36 @@
-version: '3.8'
-
+# A linha 'version' foi removida para eliminar o aviso
 services:
+  # Serviço do Banco de Dados com Healthcheck
   db:
     image: postgres:15-alpine
-    container_name: anime_db
+    container_name: anime_db_local
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=animes
-    ports:
-      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_local:/var/lib/postgresql/data/
+    ports:
+      - "5433:5432"
+    # A MUDANÇA ESTÁ AQUI:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d animes"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Serviço da nossa API
+  app:
+    build: .
+    container_name: anime_api_local
+    ports:
+      - "8000:10000"
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db/animes
+    # A MUDANÇA ESTÁ AQUI:
+    depends_on:
+      db:
+        condition: service_healthy # Agora a API só inicia DEPOIS que o healthcheck do DB passar
 
 volumes:
-  postgres_data:
+  postgres_data_local:
