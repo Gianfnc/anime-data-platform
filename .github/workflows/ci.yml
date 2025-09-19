@@ -1,0 +1,41 @@
+# Nome do nosso pipeline de automação
+name: CI Pipeline
+
+# Define quando o pipeline deve rodar:
+# a cada 'push' (envio de código) ou 'pull_request' para a branch 'main'
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Define os "trabalhos" (jobs) que o pipeline vai executar
+jobs:
+  # Nosso único job se chama 'build'
+  build:
+    # Ele vai rodar em uma máquina virtual com a versão mais recente do Ubuntu
+    runs-on: ubuntu-latest
+
+    # Define os passos (etapas) do nosso job
+    steps:
+      # 1. Clona o seu repositório para a máquina virtual
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Python na versão 3.11
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Instala todas as dependências listadas no requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Roda os testes com o pytest!
+      # Se este passo falhar, o pipeline inteiro falha.
+      - name: Run tests
+        run: |
+          pytest
