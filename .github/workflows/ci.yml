@@ -20,11 +20,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Configura o ambiente Python (AGORA CORRIGIDO PARA 3.13)
+      # 2. Configura o ambiente Python
       - name: Set up Python 3.13
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13" # <-- MUDANÇA 1
+          python-version: "3.13"
 
       # 3. Instala todas as dependências listadas no requirements.txt
       - name: Install dependencies
@@ -34,5 +34,8 @@ jobs:
       
       # 4. Roda os testes com o pytest
       - name: Run tests
+        # A MUDANÇA ESTÁ AQUI:
+        env:
+          DATABASE_URL: "sqlite:///:memory:" # Fornecemos uma URL falsa para o app iniciar
         run: |
-          python -m pytest # <-- MUDANÇA 2
+          python -m pytest
