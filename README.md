@@ -1,4 +1,3 @@
-# anime-data-platform
 # 🚀 Plataforma de Dados de Animes
 
 ![CI Pipeline](https://github.com/SEU_USUARIO/anime-data-platform/actions/workflows/ci.yml/badge.svg)
@@ -93,7 +92,7 @@ Todo o ambiente é orquestrado e containerizado com Docker, e a qualidade do có
 
 ### 👤 Autor
 
-**[Seu Nome]**
+**Gian Cordeiro**
 
-* **LinkedIn:** [https://www.linkedin.com/in/SEU_LINKEDIN/](https://www.linkedin.com/in/SEU_LINKEDIN/)
-* **GitHub:** [https://github.com/SEU_USUARIO](https://github.com/SEU_USUARIO)
+* **LinkedIn:** [https://www.linkedin.com/in/gianfn/](https://www.linkedin.com/in/gianfn/)
+* **GitHub:** [https://github.com/raincloudz](https://github.com/raincloudz)
